@@ -153,4 +153,4 @@ async def _cursed(ctx):
   
 
 
-client.run('ODM5NTEyNDcwNjQwNTI1Mzcz.YJKu6g.5gjXAjnsU6iDCs9jG_eHBsICX_k')
+client.run('TOKEN')
