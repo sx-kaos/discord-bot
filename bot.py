@@ -284,4 +284,4 @@ async def sx_true(ctx):
 
 
 
-client.run('ODM5NTEyNDcwNjQwNTI1Mzcz.YJKu6g._Qs2qvb-DsGU_P4T1djoxkfLgW0')
+client.run('TOKEN')
