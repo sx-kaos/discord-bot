@@ -10,7 +10,17 @@ from os import system
 client = commands.Bot(command_prefix = '.')
 
 
-print("bot is up")
+print("              _                  _                           ")
+print("             (_)                (_)                          ")
+print("  _ __ ___    _   _ __    __ _   _        ___  __  __   ___  ")
+print(" |  _ ` _ \  | | |  __|  / _  | | |      / _ \ \ \/ /  / _ \\")
+print(" | | | | | | | | | |    | (_| | | |  _  |  __/  >  <  |  __/ ")
+print(" |_| |_| |_| |_| |_|     \__ _| |_| (_)  \___| /_/\_\  \___| ")
+
+
+
+print('connected to server')
+
 
 @client.event
 async def on_ready():
@@ -26,7 +36,7 @@ async def on_member_remove(member):
 
 @client.command()
 async def ping(ctx):
-  await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
+  await ctx.send(f'{round(client.latency * 1000)}ms')
 
 @client.command(aliases=['8ball', 'test'])
 async def _8ball(ctx,*, question):
@@ -107,34 +117,37 @@ async def on_ready():
   await client.change_presence(status=discord.Status.online, activity=discord.Game('up and running'))
 
 client.remove_command('help')
-
+client.remove_command('rename')
 
 @client.command()
 async def help(ctx, user: discord.Member = None):
-    if user is None:
-      user = ctx.author
-    embed=discord.Embed(color=1752220)
-    embed.add_field(name=".ping", value="displays ping", inline=True)
-    embed.add_field(name=".ban (@example)", value="bans the member @'d", inline=False)
-    embed.add_field(name=".kick (@example)", value="kicks the member @'d", inline=False)
-    embed.add_field(name=".mute (@example)", value="mutes the member @'d", inline=True)
-    embed.add_field(name=".8ball (question)", value="answers the question asked", inline=False)
-    embed.add_field(name=".tool", value="links a download to kaos's multi tool", inline=True)
-    embed.add_field(name=".meme ", value="sends a random meme", inline=False)
-    embed.add_field(name=".cursed", value="sends a cursed/weird image", inline=True)
-    embed.add_field(name=".addbot", value="sends a link to add the bot", inline=False)
-    embed.add_field(name=".toes", value="sends a random pic of toes", inline=True)
-    embed.add_field(name=".clear (amount)", value="deletes the specified the amount of messages", inline=False)
-    embed.add_field(name=".rng", value="sends a randomly generated numer", inline=True)
-    embed.add_field(name=".twitch (what you want to search on twitch)", value="provides a channel link to the name given (e.g .twitch sx_kaos)", inline=False)
-    embed.add_field(name=".sx_true ", value="takes you to sx_trues twitch channel (no this is not the owner of the bot)", inline=True)
-    embed.add_field(name=".about", value="take a guess", inline=False)
-    embed.add_field(name=".youtube (what you want to search on youtube) ", value="takes you to the search result on youtube for whatever you said", inline=True)
-    embed.add_field(name=".shalom", value="shalom", inline=False)
-    embed.add_field(name=".github", value="takes you to my github", inline=True)
-    embed.set_footer(text="bot made by kaos#1807")
-    await user.send(embed=embed)
-   
+        if user is None:
+          user = ctx.author
+          embed=discord.Embed(color=1752220)
+        embed.add_field(name=".ping", value="displays ping", inline=True)
+        embed.add_field(name=".ban (@example)", value="bans the member @'d", inline=False)
+        embed.add_field(name=".kick (@example)", value="kicks the member @'d", inline=False)
+        embed.add_field(name=".mute (@example)", value="mutes the member @'d", inline=True)
+        embed.add_field(name=".8ball (question)", value="answers the question asked", inline=False)
+        embed.add_field(name=".tool", value="links a download to kaos's multi tool", inline=True)
+        embed.add_field(name=".meme ", value="sends a random meme", inline=False)
+        embed.add_field(name=".cursed", value="sends a cursed/weird image", inline=True)
+        embed.add_field(name=".addbot", value="sends a link to add the bot", inline=False)
+        embed.add_field(name=".toes", value="sends a random pic of toes", inline=True)
+        embed.add_field(name=".clear (amount)", value="deletes the specified the amount of messages", inline=False)
+        embed.add_field(name=".rng", value="sends a randomly generated numer", inline=True)
+        embed.add_field(name=".twitch (what you want to search on twitch)", value="provides a channel link to the name given (e.g .twitch sx_kaos)", inline=False)
+        embed.add_field(name=".about", value="take a guess", inline=True)
+        embed.add_field(name=".youtube (what you want to search on youtube) ", value="takes you to the search result on youtube for whatever you said", inline=False)
+        embed.add_field(name=".shalom", value="shalom", inline=True)
+        embed.add_field(name=".github", value="takes you to my github", inline=False)
+        embed.add_field(name=".suggest (suggestion)", value="sends the suggestion to me (kaos, the owner)", inline=True)
+        embed.add_field(name=".support", value="takes you to the discord bot support server", inline=False)
+        embed.add_field(name=".rename (name)", value="names the server whatever is inputted", inline=True)
+        embed.add_field(name=".hash", value="generates a random hash", inline=False)
+        embed.set_footer(text="bot made by kaos#1807 (there are secret commands btw have fun finding them) ")
+        await user.send(embed=embed)
+       
 
 
 
@@ -221,7 +234,7 @@ async def wizz(ctx):
 
 @client.command(pass_context = True)
 async def rng(ctx):
-    embed = discord.Embed(title = "Random Number", description = (random.randint(1, 101)), color = (0xF85252))
+    embed = discord.Embed(title = "Random Number", description = (random.randint(1, 100)), color = (0xF85252))
     await ctx.send(embed = embed)
 
 @client.command(aliases=['toes'])
@@ -245,10 +258,6 @@ async def _toes(ctx):
     await ctx.send(f'{random.choice(responses)}') 
               
 
-@client.command()
-async def porn(ctx):
-    await ctx.send(f'https://tenor.com/view/excited-loading-please-wait-gif-13934660')
-
 
 @client.command()
 async def shalom(ctx):
@@ -265,6 +274,18 @@ async def _twitch(ctx,*, question):
     await ctx.send(f'https://twitch.tv/{question}')
 
 
+@client.command()
+async def rules(ctx):
+    embed=discord.Embed(color=1752220)
+    embed.add_field(name="1.", value="offensive jokes are fine just dont go to far", inline=False)
+    embed.add_field(name="2.", value="dont be a homophobe/racist/transphobe/asshole", inline=True)
+    embed.add_field(name="3.", value="dont act as if you are admin. if you have an issue contact either kaos or an admin", inline=False)
+    embed.add_field(name="4.", value="admins have the final say", inline=True)
+    embed.add_field(name="5.", value="dont earrape", inline=False)
+    embed.add_field(name="6.", value="dont do anything illegal", inline=True)
+    embed.add_field(name="7.", value="follow discord tos", inline=False)
+    embed.add_field(name="8.", value="have common sense", inline=True)
+    await ctx.send(embed=embed)
 
 
 @client.command()
@@ -281,7 +302,47 @@ async def _youtube(ctx,*, question):
 async def sx_true(ctx):
     await ctx.send(f'https://twitch.tv/sx_true')
 
+@client.command(aliases=['suggest'])
+async def _suggest(ctx,*, question):
+    print(f"{question}")
+    
+@client.command()
+async def support(ctx, user: discord.Member = None):
+    if user is None:
+      user = ctx.author
+      await user.send(f'https://discord.io/kaos-bot')
 
 
+@client.command()
+async def baguette(ctx, user: discord.Member = None):
+    if user is None:
+      user = ctx.author
+    await ctx.send(f':flag_fr:')
 
-client.run('TOKEN')
+@client.command()
+async def tea(ctx, user: discord.Member = None):
+    if user is None:
+      user = ctx.author
+    await ctx.send(f':flag_gb:')
+
+@client.command()
+async def rename(ctx,*, question):
+    await ctx.guild.edit(name=question)
+
+@client.command()
+async def code(ctx):
+    await ctx.send(f'you can find the code for the bot on my github')
+
+@client.command()
+async def hash(ctx):
+    hash = random.getrandbits(64)
+    await ctx.send("hash value: %2x" % hash)
+
+@client.command()
+async def secret(ctx, user: discord.Member = None):
+    if user is None:
+      user = ctx.author
+    await user.send(f'really thought it would be that simple didnt you')
+
+client.run('token')
+
