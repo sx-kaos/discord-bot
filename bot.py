@@ -3,6 +3,7 @@ import random
 import os
 import asyncio
 import youtube_dl
+import pickle
 import discord
 from discord.ext import commands
 from os import system
@@ -18,6 +19,8 @@ from discord.ext.commands import command, has_permissions
 
 
 client = commands.Bot(command_prefix = '.')
+
+
 
 
 print("███╗░░░███╗██╗██████╗░░█████╗░██╗░░░███████╗██╗░░██╗███████╗")
@@ -132,16 +135,14 @@ async def unban(ctx, *, member):
 
 @client.event
 async def on_ready():
-  await client.change_presence(status=discord.Status.online, activity=discord.Game('up and running'))
+  await client.change_presence(status=discord.Status.online, activity=discord.Game('.help'))
 
 client.remove_command('help')
 client.remove_command('rename')
 
 @client.command()
-async def help(ctx, user: discord.Member = None):
-        if user is None:
-          user = ctx.author
-          embed=discord.Embed(color=1752220)
+async def help(ctx):
+        embed=discord.Embed(color=1752220)
         embed.add_field(name=".ping", value="displays ping", inline=True)
         embed.add_field(name=".ban (@example)", value="bans the member @'d", inline=False)
         embed.add_field(name=".kick (@example)", value="kicks the member @'d", inline=False)
@@ -169,7 +170,7 @@ async def help(ctx, user: discord.Member = None):
         embed.add_field(name=".bored", value="try it if your bored", inline=False)
         embed.add_field(name=".alphabet", value="sends the english alphabet (in case you forgot it)", inline=True)
         embed.set_footer(text="bot made by not.kaos.420 on instagram (there are secret commands btw have fun finding them)")
-        await user.send(embed=embed)
+        await ctx.send(embed=embed)
 
         embed=discord.Embed(title="help 2", description="help 2", color=1752220)
         embed.add_field(name=".count", value="sends a mesage that counts ", inline=False)
@@ -177,8 +178,9 @@ async def help(ctx, user: discord.Member = None):
         embed.add_field(name=".serverinfo", value="sends server info", inline=False)
         embed.add_field(name=".rn", value="sends the date and time", inline=True)
         embed.add_field(name=".setup", value="setups up a server with text, voice and admin channels", inline=False)
+        embed.add_field(name=".info", value="information about the bot", inline=True)
         embed.set_footer(text="bot made by not.kaos.420 on instagram (there are secret commands btw have fun finding them)")
-        await user.send(embed=embed)
+        await ctx.send(embed=embed)
 
 
 @client.command()
@@ -436,6 +438,9 @@ async def say(ctx, *, question):
 
 
 
+
+
+
 @client.command()
 async def setup(ctx):
     guild = ctx.message.guild
@@ -485,7 +490,6 @@ async def rn(ctx):
     embed.add_field(name="current time is:", value=current_time, inline=False)
     embed.add_field(name="current date is:", value=d1, inline=True)
     await ctx.reply(embed=embed)
-
 
 
 
@@ -554,9 +558,17 @@ async def on_guild_join(guild):
     if general and general.permissions_for(guild.me).send_messages:
         await general.send(f'**thank you for adding mirai a bot made by not.kaos.420 on instagram**\n to get started try using the help command.\n ***the bots prefix is (.) minus the brackets.***')
 
-
-
+     
     
+@client.command()
+async def info(ctx):
+    embed=discord.Embed(title="about the bot:", color=0x5af589)
+    embed.add_field(name="mirai was created at:", value="Wed, 05 May 2021 14:42:50 UTC", inline=False)
+    embed.add_field(name="mirai was created by: ", value="746758674067750952 (discord id)", inline=True)
+    embed.add_field(name="mirai's named after:", value="a powerful botnet also called mirai, no its not named after the anime", inline=False)
+    embed.set_footer(text="bot created by not.kaos.420 on instagram")
+    await ctx.send(embed=embed)
 
 
-client.run('token')
+
+
