@@ -2,8 +2,8 @@ import time
 import random
 import os
 import asyncio
-import youtube_dl
-import pickle
+import sys
+import colorama
 import discord
 from discord.ext import commands
 from os import system
@@ -13,25 +13,35 @@ from datetime import datetime
 from typing import Optional
 from discord import Embed, Member
 from discord.ext.commands import Cog
+from colorama import init
 from discord.utils import find
 from discord.ext.commands import CheckFailure
 from discord.ext.commands import command, has_permissions
 
+init()
+
+system('title mirai')
 
 client = commands.Bot(command_prefix = '.')
 
 
 
 
-print("███╗░░░███╗██╗██████╗░░█████╗░██╗░░░███████╗██╗░░██╗███████╗")
-print("████╗░████║██║██╔══██╗██╔══██╗██║░░░██╔════╝╚██╗██╔╝██╔════╝")
-print("██╔████╔██║██║██████╔╝███████║██║░░░█████╗░░░╚███╔╝░█████╗░░")
-print("██║╚██╔╝██║██║██╔══██╗██╔══██║██║░░░██╔══╝░░░██╔██╗░██╔══╝░░")
-print("██║░╚═╝░██║██║██║░░██║██║░░██║██║██╗███████╗██╔╝╚██╗███████╗")
-print("╚═╝░░░░░╚═╝╚═╝╚═╝░░╚═╝╚═╝░░╚═╝╚═╝╚═╝╚══════╝╚═╝░░╚═╝╚══════╝")
-print("main bot")
 
-
+def logo():
+    print('\033[1;36;40m' + '')
+    print('\033[1;36;40m' + '                                            ╔═╗╔═╦══╦═══╦═══╦══╗')
+    print('\033[1;36;40m' + '                                            ║║╚╝║╠╣╠╣╔═╗║╔═╗╠╣╠╝')
+    print('\033[1;36;40m' + '                                            ║╔╗╔╗║║║║╚═╝║║─║║║║')
+    print('\033[1;36;40m' + '                                            ║║║║║║║║║╔╗╔╣╚═╝║║║')
+    print('\033[1;36;40m' + '                                            ║║║║║╠╣╠╣║║╚╣╔═╗╠╣╠╗')
+    print('\033[1;36;40m' + '                                            ╚╝╚╝╚╩══╩╝╚═╩╝─╚╩══╝v2')
+    print('\033[1;36;40m' + '')
+    print('\033[1;36;40m' + '                                           ╔════════════════════╗')
+    print('\033[1;36;40m' + '                                           ║  Welcome to mirai. ║')
+    print('\033[1;36;40m' + '                                           ║    Made by Kaos    ║')
+    print('\033[1;36;40m' + '                                           ╚════════════════════╝')
+logo()
 
 @client.event
 async def on_ready():
@@ -43,17 +53,29 @@ async def on_ready():
     print("bot started at:", d1, current_time)
 
 
+@client.command()
+@has_permissions(kick_members=True)
+async def kick(ctx, member: discord.Member, *, reason=None):
+    await member.kick(reason=reason)
+    await ctx.send(f'{member} Was kicked for "{reason}"')
 
+@kick.error
+async def kick_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send("You Do Not Have The Right Permissions To Use This Command")
 
+@client.command()
+@has_permissions(ban_members=True)
+async def ban(ctx, member: discord.Member, *, reason=None):
+    await member.ban(reason=reason)
+    await ctx.send(f'{member} Was Banned for "{reason}"')
 
-
-@client.event
-async def on_member_join(member):
-  await ctx.send(f'{member} has joined the server.')
-
-@client.event
-async def on_member_remove(member):
-  await ctx.send(f'{member} has left the server.')
+@kick.error
+async def ban_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send("You Do Not Have The Right Permissions To Use This Command")
+        
+                   
 
 @client.command()
 async def ping(ctx):
@@ -66,6 +88,8 @@ async def _8ball(ctx,*, question):
                 'Without a doubt.',
                 'Yes - definitely.',
                 'You may rely on it.',
+                'one can dream',
+                'quit joking yourself',
                 'As i see i it, yes.',
                 'Most likely.',
                 'Outlook good.',
@@ -102,21 +126,8 @@ async def mute(ctx, member: discord.Member, *, reason=None):
 
 
 @client.command()
-async def clear(ctx, amount : int):
-  await ctx.channel.purge(limit=amount)
-  await ctx.send(f'cleared {amount} messages!')
-
-
-
-@client.command()
-async def kick(ctx, member : discord.Member, *, reason=None):
-  await member.kick(reason=reason)
-  await ctx.send(f'kicked {member.mention}')
-
-@client.command()
-async def ban(ctx, member : discord.Member, *, reason=None):
-  await member.ban(reason=reason)
-  await ctx.send(f'banned {member.mention}')
+async def isudbfhjsdbhjsdhjfsndbf(ctx, amount : int):
+        await ctx.channel.purge(limit=amount)
 
 @client.command()
 async def unban(ctx, *, member):
@@ -169,7 +180,7 @@ async def help(ctx):
         embed.add_field(name=".twitter", value="my twitter", inline=True)
         embed.add_field(name=".bored", value="try it if your bored", inline=False)
         embed.add_field(name=".alphabet", value="sends the english alphabet (in case you forgot it)", inline=True)
-        embed.set_footer(text="bot made by not.kaos.420 on instagram (there are secret commands btw have fun finding them)")
+        embed.set_footer(text="bot made by 『𝚔𝚊𝚘𝚜』#1565 on discord (there are secret commands btw have fun finding them)")
         await ctx.send(embed=embed)
 
         embed=discord.Embed(title="help 2", description="help 2", color=1752220)
@@ -179,7 +190,7 @@ async def help(ctx):
         embed.add_field(name=".rn", value="sends the date and time", inline=True)
         embed.add_field(name=".setup", value="setups up a server with text, voice and admin channels", inline=False)
         embed.add_field(name=".info", value="information about the bot", inline=True)
-        embed.set_footer(text="bot made by not.kaos.420 on instagram (there are secret commands btw have fun finding them)")
+        embed.set_footer(text="bot made by 『𝚔𝚊𝚘𝚜』#1565 on discord (there are secret commands btw have fun finding them)")
         await ctx.send(embed=embed)
 
 
@@ -213,6 +224,7 @@ async def _cursed(ctx):
                 'https://i.redd.it/4fekx602rzw61.jpg',
                 'https://preview.redd.it/6wci59ovgpw61.jpg?width=960&crop=smart&auto=webp&s=b6289c4bedc4ef6be594d1498571acb57a864f2e',
                 'https://preview.redd.it/iwictx3gf8w61.jpg?width=640&crop=smart&auto=webp&s=93bba3af47c26145d6e4e6df4fa74e3134eabbc7',
+                'https://cdn.discordapp.com/attachments/747795625852272762/868606783583830036/Women-dancing-naked-in-a--007.png',
                 'https://i.redd.it/86c3cm7772w61.jpg']
   await ctx.send(f'{random.choice(responses)}')
 
@@ -342,7 +354,7 @@ async def _suggest(ctx,*, question):
 async def support(ctx, user: discord.Member = None):
     if user is None:
       user = ctx.author
-      await user.send(f'https://discord.io/kaos-bot')
+      await user.send(f'https://dsc.gg/kaos')
 
 
 @client.command()
@@ -437,47 +449,6 @@ async def say(ctx, *, question):
 
 
 
-
-
-
-
-@client.command()
-async def setup(ctx):
-    guild = ctx.message.guild
-
-    category = await ctx.guild.create_category('information')
-    await ctx.guild.create_text_channel(f'rules', category=category)
-    await ctx.guild.create_text_channel(f'announcements', category=category)
-    await ctx.guild.create_text_channel(f'giveaways', category=category)
-    await ctx.guild.create_text_channel(f'faq', category=category)
-
-
-
-    category2 = await ctx.guild.create_category('text channels')
-    await ctx.guild.create_text_channel(f'general', category=category2)
-    await ctx.guild.create_text_channel(f'media', category=category2)
-    await ctx.guild.create_text_channel(f'memes', category=category2)
-    await ctx.guild.create_text_channel(f'bot cmds', category=category2)
-
-
-
-    category3 = await ctx.guild.create_category('voice channels')
-    await ctx.guild.create_text_channel(f'no mic', category=category3)
-    await ctx.guild.create_voice_channel(f'game room 1', category=category3)
-    await ctx.guild.create_voice_channel(f'game room 2', category=category3)
-    await ctx.guild.create_voice_channel(f'game room 3', category=category3)
-    await ctx.guild.create_voice_channel(f'just talking 1', category=category3)
-    await ctx.guild.create_voice_channel(f'just talking 2', category=category3)
-    await ctx.guild.create_voice_channel(f'just talking 3', category=category3)
-    await ctx.guild.create_voice_channel(f'music room 1', category=category3)
-    await ctx.guild.create_voice_channel(f'music room 1', category=category3)
-    await ctx.guild.create_voice_channel(f'music room 1', category=category3)
-
-    category4 = await ctx.guild.create_category('admin')
-    await ctx.guild.create_text_channel(f'admin text', category=category4)
-    await ctx.guild.create_voice_channel(f'admin voice', category=category4)
-
-
 @client.command()
 async def rn(ctx):
 
@@ -492,11 +463,29 @@ async def rn(ctx):
     await ctx.reply(embed=embed)
 
 
+@client.command()
+async def heil(ctx,):
+  responses = [ 'https://cdn.discordapp.com/attachments/839512947495010335/860163705572163614/2Q.png',
+                'https://cdn.discordapp.com/attachments/747795625852272762/868605809611903066/kiofimunl3d21.png',
+                'https://cdn.discordapp.com/attachments/747795625852272762/868606133806465064/rdi8bb9bk2c41.png',
+                'https://cdn.discordapp.com/attachments/747795625852272762/868606176496082944/Z.png',
+                'https://cdn.discordapp.com/attachments/747795625852272762/868606316636143616/E9BA5E1511445764F80ED9BFF0EAF15A5B772D97.png',
+                'https://cdn.discordapp.com/attachments/747795625852272762/868606417718874132/650_hitler.png',
+                'https://cdn.discordapp.com/attachments/747795625852272762/868606549206134874/86f46eeb1f1099363b2d8480c07a1202.png',
+                'https://cdn.discordapp.com/attachments/747795625852272762/868606713144705075/2-girls-1-kampf-adolf-hitler.png',
+                'https://cdn.discordapp.com/attachments/747795625852272762/868607504521781258/hail-hitler-69472090.png',
+                'https://cdn.discordapp.com/attachments/747795625852272762/868607003390529586/9k.png',
+                'https://cdn.discordapp.com/attachments/747795625852272762/868607122089316373/c9euqougfyq21.png',
+                'https://cdn.discordapp.com/attachments/747795625852272762/868607244529455174/hitler_loves_his_xbox_by_cursed_arcade_d21cqee-fullview.png',
+                'https://cdn.discordapp.com/attachments/747795625852272762/868607269145833482/images.png']
+  await ctx.send(f'{random.choice(responses)}')
+
 
 @client.command()
 async def serverinfo(ctx):
   name = str(ctx.guild.name)
-  description = str(ctx.guild.description)
+  description = ""
+
 
   owner = str(ctx.guild.owner)
   id = str(ctx.guild.id)
@@ -510,9 +499,7 @@ async def serverinfo(ctx):
       description=description,
       color=discord.Color.blue()
     )
-  embed.set_thumbnail(url=icon)
-  embed.add_field(name="Owner", value=owner, inline=True)
-  embed.add_field(name="Server ID", value=id, inline=True)
+  embed.add_field(name="Server ID", value=id, inline=False)
   embed.add_field(name="Region", value=region, inline=True)
   embed.add_field(name="Member Count", value=memberCount, inline=True)
 
@@ -531,8 +518,6 @@ async def user(ctx, target: Optional[Member]):
     ("ID", target.id, True),
     ("Bot?", target.bot, True),
     ("Top role", target.top_role.mention, True),
-    ("Status", str(target.status).title(), True),
-    ("Activity", f"{str(target.activity.type).split('.')[-1].title() if target.activity else 'N/A'} {target.activity.name if target.activity else ''}", True),
     ("Created at", target.created_at.strftime("%d/%m/%Y %H:%M:%S"), True),
     ("Joined at", target.joined_at.strftime("%d/%m/%Y %H:%M:%S"), True),
     ("Boosted", bool(target.premium_since), True)]
@@ -558,6 +543,34 @@ async def on_guild_join(guild):
     if general and general.permissions_for(guild.me).send_messages:
         await general.send(f'**thank you for adding mirai a bot made by not.kaos.420 on instagram**\n to get started try using the help command.\n ***the bots prefix is (.) minus the brackets.***')
 
+
+@client.command()
+async def clip(ctx, member : discord.Member):
+    responses = [ 'get pinged',
+                  'pinged',
+                  'u like my pings?',
+                  'pinged?',
+                  'pinged lol']
+    await ctx.send(f'{member.mention}{random.choice(responses)}')
+    asyncio.sleep(0.5)
+    await ctx.send(f'{member.mention}{random.choice(responses)}')
+    asyncio.sleep(0.5)
+    await ctx.send(f'{member.mention}{random.choice(responses)}')
+    asyncio.sleep(0.5)
+    await ctx.send(f'{member.mention}{random.choice(responses)}')
+    asyncio.sleep(0.5)
+    await ctx.send(f'{member.mention}{random.choice(responses)}')
+    asyncio.sleep(0.5)
+    await ctx.send(f'{member.mention}{random.choice(responses)}')
+    asyncio.sleep(0.5)
+    await ctx.send(f'{member.mention}{random.choice(responses)}')
+    asyncio.sleep(0.5)
+    await ctx.send(f'{member.mention}{random.choice(responses)}')
+    asyncio.sleep(0.5)
+    await ctx.send(f'{member.mention}{random.choice(responses)}')
+    asyncio.sleep(0.5)
+    await ctx.send(f'{member.mention}{random.choice(responses)}')
+    asyncio.sleep(0.5)
      
     
 @client.command()
@@ -569,6 +582,134 @@ async def info(ctx):
     embed.set_footer(text="bot created by not.kaos.420 on instagram")
     await ctx.send(embed=embed)
 
+
+
+
+@client.command()
+async def load(ctx):
+    message = await ctx.send("starting loading")
+    await asyncio.sleep(0.2)
+    one = "[■ ] 10%"
+    two = "[■■ ] 20%"
+    three = "[■■■ ] 30%"
+    four = "[■■■■ ] 40%"
+    five = "[■■■■■ ] 50%"
+    six = "[■■■■■■ ] 60%"
+    seven = "[■■■■■■■ ] 70%"
+    eight = "[■■■■■■■■ ] 80%"
+    nine = "[■■■■■■■■■ ] 90%"
+    ten = "[■■■■■■■■■■] 100%"
+
+    await message.edit(content=(one))
+    await asyncio.sleep(2)
+    await message.edit(content=(two))
+    await asyncio.sleep(2)
+    await message.edit(content=(three))
+    await asyncio.sleep(2)
+    await message.edit(content=(four))
+    await asyncio.sleep(2)
+    await message.edit(content=(five))
+    await asyncio.sleep(2)
+    await message.edit(content=(six))
+    await asyncio.sleep(2)
+    await message.edit(content=(seven))
+    await asyncio.sleep(2)
+    await message.edit(content=(eight))
+    await asyncio.sleep(2)
+    await message.edit(content=(nine))
+    await asyncio.sleep(2)
+    await message.edit(content=(ten))
+    await asyncio.sleep(2)
+    await message.edit(content="finished loading")
+
+@client.command()
+async def hack(ctx):
+    message = await ctx.send("starting hacking")
+    await asyncio.sleep(0.2)
+    await message.edit(content=("loading scary dark web..."))
+    await asyncio.sleep(2)
+    await message.edit(content=("loaded black market..."))
+    await asyncio.sleep(2)
+    await message.edit(content=("successfully bought copious amounts of ketamine..."))
+    await asyncio.sleep(2)
+    await message.edit(content=("hacking government..."))
+    await asyncio.sleep(2)
+    await message.edit(content=("hacked the government..."))
+    await asyncio.sleep(2) 
+    await message.edit(content=("nuclear launch codes found..."))
+    await asyncio.sleep(2)
+    await message.edit(content=("sending nukes to north korea..."))
+    await asyncio.sleep(2)
+    await message.edit(content=("hack finished"))
+
+        
+
+@client.command()
+async def send(ctx):
+    await ctx.channel.purge(limit=2)
+    message = input("enter message here: ")
+    await ctx.send(f"{message}")
+    system('cls' if os.name == 'nt' else 'clear')
+    logo()
+    message = input("enter message here: ")
+    await ctx.send(f"{message}")
+    system('cls' if os.name == 'nt' else 'clear')
+    logo()
+    message = input("enter message here: ")
+    await ctx.send(f"{message}")
+    system('cls' if os.name == 'nt' else 'clear')
+    logo()
+    message = input("enter message here: ")
+    await ctx.send(f"{message}")
+    system('cls' if os.name == 'nt' else 'clear')
+    logo()
+    message = input("enter message here: ")
+    await ctx.send(f"{message}")
+    system('cls' if os.name == 'nt' else 'clear')
+    logo()
+    message = input("enter message here: ")
+    await ctx.send(f"{message}")
+    system('cls' if os.name == 'nt' else 'clear')
+    logo()
+    message = input("enter message here: ")
+    await ctx.send(f"{message}")
+    system('cls' if os.name == 'nt' else 'clear')
+    logo()
+    message = input("enter message here: ")
+    await ctx.send(f"{message}")
+    system('cls' if os.name == 'nt' else 'clear')
+    logo()
+    message = input("enter message here: ")
+    await ctx.send(f"{message}")
+    system('cls' if os.name == 'nt' else 'clear')
+    logo()
+    message = input("enter message here: ")
+    await ctx.send(f"{message}")
+    system('cls' if os.name == 'nt' else 'clear')
+    logo()
+    message = input("enter message here: ")
+    await ctx.send(f"{message}")
+    system('cls' if os.name == 'nt' else 'clear')
+    logo()
+    message = input("enter message here: ")
+    await ctx.send(f"{message}")
+    system('cls' if os.name == 'nt' else 'clear')
+    logo()
+    message = input("enter message here: ")
+    await ctx.send(f"{message}")
+    system('cls' if os.name == 'nt' else 'clear')
+    logo()
+    
+@client.command()
+async def children(ctx):
+    await ctx.send(f"fucking nonce")
+
+@client.command()
+async def kids(ctx):
+    await ctx.send(f"creep")
+
+
+client.run(token)
 
 
 
