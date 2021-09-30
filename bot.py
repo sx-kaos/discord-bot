@@ -462,25 +462,6 @@ async def rn(ctx):
     embed.add_field(name="current date is:", value=d1, inline=True)
     await ctx.reply(embed=embed)
 
-
-@client.command()
-async def heil(ctx,):
-  responses = [ 'https://cdn.discordapp.com/attachments/839512947495010335/860163705572163614/2Q.png',
-                'https://cdn.discordapp.com/attachments/747795625852272762/868605809611903066/kiofimunl3d21.png',
-                'https://cdn.discordapp.com/attachments/747795625852272762/868606133806465064/rdi8bb9bk2c41.png',
-                'https://cdn.discordapp.com/attachments/747795625852272762/868606176496082944/Z.png',
-                'https://cdn.discordapp.com/attachments/747795625852272762/868606316636143616/E9BA5E1511445764F80ED9BFF0EAF15A5B772D97.png',
-                'https://cdn.discordapp.com/attachments/747795625852272762/868606417718874132/650_hitler.png',
-                'https://cdn.discordapp.com/attachments/747795625852272762/868606549206134874/86f46eeb1f1099363b2d8480c07a1202.png',
-                'https://cdn.discordapp.com/attachments/747795625852272762/868606713144705075/2-girls-1-kampf-adolf-hitler.png',
-                'https://cdn.discordapp.com/attachments/747795625852272762/868607504521781258/hail-hitler-69472090.png',
-                'https://cdn.discordapp.com/attachments/747795625852272762/868607003390529586/9k.png',
-                'https://cdn.discordapp.com/attachments/747795625852272762/868607122089316373/c9euqougfyq21.png',
-                'https://cdn.discordapp.com/attachments/747795625852272762/868607244529455174/hitler_loves_his_xbox_by_cursed_arcade_d21cqee-fullview.png',
-                'https://cdn.discordapp.com/attachments/747795625852272762/868607269145833482/images.png']
-  await ctx.send(f'{random.choice(responses)}')
-
-
 @client.command()
 async def serverinfo(ctx):
   name = str(ctx.guild.name)
