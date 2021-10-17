@@ -1,4 +1,3 @@
-import time
 import random
 import os
 import asyncio
@@ -17,11 +16,15 @@ from colorama import init
 from discord.utils import find
 from discord.ext.commands import CheckFailure
 from discord.ext.commands import command, has_permissions
+from pypresence import Presence
+import time
 
 init()
+system('title lunar rpc')
 
-system('title mirai')
-
+RPC = Presence("856168902803587082") 
+RPC.connect() 
+RPC.update(large_image="untitled", large_text="https://dsc.gg/kaos", start=time.time())
 client = commands.Bot(command_prefix = '.')
 
 
@@ -126,7 +129,7 @@ async def mute(ctx, member: discord.Member, *, reason=None):
 
 
 @client.command()
-async def isudbfhjsdbhjsdhjfsndbf(ctx, amount : int):
+async def clear(ctx, amount : int):
         await ctx.channel.purge(limit=amount)
 
 @client.command()
@@ -461,6 +464,8 @@ async def rn(ctx):
     embed.add_field(name="current time is:", value=current_time, inline=False)
     embed.add_field(name="current date is:", value=d1, inline=True)
     await ctx.reply(embed=embed)
+
+
 
 @client.command()
 async def serverinfo(ctx):
